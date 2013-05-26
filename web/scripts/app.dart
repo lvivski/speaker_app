@@ -23,5 +23,4 @@ void main() {
 
     document.query('#remote').append(video);
   });
-
 }
