@@ -3,27 +3,23 @@ import 'package:web_ui/web_ui.dart';
 import 'package:speak/client.dart';
 import '../components/xplayer.dart';
 
-// initial value for click-counter
-int startingCount = 0;
-
 void main() {
-  // Enable this to use Shadow DOM in the browser.
   useShadowDom = true;
 
   var speak = new SpeakClient("ws://127.0.0.1:3001");
 
-  speak.createStream((stream) {
+  speak.createStream(video: true).then((stream) {
     var video = new VideoElement()
-    ..autoplay = true
-    ..src = Url.createObjectUrl(stream);
+      ..autoplay = true
+      ..src = Url.createObjectUrl(stream);
 
     document.query('#local').append(video);
   });
 
-  speak.on('add', (e) {
+  speak.onAdd.listen((message) {
     var video = new VideoElement()
-    ..autoplay = true
-    ..src = Url.createObjectUrl(e['data'].stream);
+      ..autoplay = true
+      ..src = Url.createObjectUrl(message['data'].stream);
 
     document.query('#remote').append(video);
   });
