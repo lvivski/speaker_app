@@ -24,4 +24,11 @@ void main() {
 
     document.query('#remote').append(video);
   });
+
+  speak.onLeave.listen((message) {
+    document.query('#remote${message['id']}').remove();
+  });
+
+
+
 }
