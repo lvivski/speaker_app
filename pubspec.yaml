@@ -1,0 +1,8 @@
+name: speak_demo
+description: A sample WebUI application
+dependencies:
+  browser: any
+  js: any
+  speak:
+    path: ../speak
+  web_ui: any
