@@ -18,8 +18,9 @@ void main() {
 
   speak.onAdd.listen((message) {
     var video = new VideoElement()
+      ..id = 'remote${message['id']}'
       ..autoplay = true
-      ..src = Url.createObjectUrl(message['data'].stream);
+      ..src = Url.createObjectUrl(message['stream']);
 
     document.query('#remote').append(video);
   });
