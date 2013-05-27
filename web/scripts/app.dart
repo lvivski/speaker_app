@@ -23,10 +23,8 @@ void main() {
 
     document.query('#remote').append(video);
 
-    document.query('#chat').onChange.listen((e) {
-      if (e.target.value != '') {
-        speaker.send(e.target.value);
-      }
+    document.query('#chat').onChange.where((e) => e.target.value != '').listen((e) {
+      speaker.send(e.target.value);
       e.target.value = '';
     });
   });
