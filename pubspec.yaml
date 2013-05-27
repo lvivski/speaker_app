@@ -1,8 +1,8 @@
-name: speak_demo
+name: speaker_app
 description: A sample WebUI application
 dependencies:
   browser: any
   js: any
-  speak:
-    path: ../speak
+  speaker:
+    path: ../speaker
   web_ui: any

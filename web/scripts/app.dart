@@ -1,13 +1,13 @@
 import 'dart:html';
 import 'package:web_ui/web_ui.dart';
-import 'package:speak/client.dart';
+import 'package:speaker/client.dart';
 
 void main() {
   useShadowDom = true;
 
-  var speak = new SpeakClient('ws://127.0.0.1:3001', room: 'room');
+  var speaker = new SpeakerClient('ws://127.0.0.1:3001', room: 'room');
 
-  speak.createStream(video: true).then((stream) {
+  speaker.createStream(video: true).then((stream) {
     var video = new VideoElement()
       ..autoplay = true
       ..src = Url.createObjectUrl(stream);
@@ -15,19 +15,30 @@ void main() {
     document.query('#local').append(video);
   });
 
-  speak.onAdd.listen((message) {
+  speaker.onAdd.listen((message) {
     var video = new VideoElement()
       ..id = 'remote${message['id']}'
       ..autoplay = true
       ..src = Url.createObjectUrl(message['stream']);
 
     document.query('#remote').append(video);
+
+    document.query('#chat').onChange.listen((e) {
+      if (e.target.value != '') {
+        speaker.send(e.target.value);
+      }
+      e.target.value = '';
+    });
   });
 
-  speak.onLeave.listen((message) {
-    document.query('#remote${message['id']}').remove();
+  speaker.onData.listen((message) {
+    print(message['data']);
   });
 
-
-
+  speaker.onLeave.listen((message) {
+    var video = document.query('#remote${message['id']}');
+    if (video != null) {
+      video.remove();
+    }
+  });
 }
