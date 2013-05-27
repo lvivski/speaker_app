@@ -1,7 +1,6 @@
 import 'dart:html';
 import 'package:web_ui/web_ui.dart';
 import 'package:speak/client.dart';
-import '../components/xplayer.dart';
 
 void main() {
   useShadowDom = true;
