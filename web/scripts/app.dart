@@ -6,7 +6,7 @@ import '../components/xplayer.dart';
 void main() {
   useShadowDom = true;
 
-  var speak = new SpeakClient("ws://127.0.0.1:3001");
+  var speak = new SpeakClient('ws://127.0.0.1:3001', room: 'room');
 
   speak.createStream(video: true).then((stream) {
     var video = new VideoElement()
